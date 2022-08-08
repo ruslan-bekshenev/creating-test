@@ -14,6 +14,6 @@ import { QuestionAnswerModule } from './question_answer/question_answer.module';
     QuestionAnswerModule,
   ],
   controllers: [],
-  providers: [QuestionOptionsService],
+  providers: [],
 })
 export class AppModule {}

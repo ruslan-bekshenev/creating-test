@@ -12,16 +12,20 @@ export class QuestionService {
   ) {}
 
   async create(createQuestionDto: CreateQuestionDto) {
-    const { question } = createQuestionDto;
+    try {
+      const { question } = createQuestionDto;
 
-    const questionObj = this.questionRepository.create({ question });
+      const questionObj = this.questionRepository.create({ question });
 
-    await this.questionRepository.save(questionObj);
+      await this.questionRepository.save(questionObj);
 
-    return questionObj;
+      return questionObj;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  async getList() {
+  getList() {
     return this.questionRepository.find();
   }
 }

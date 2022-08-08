@@ -40,6 +40,8 @@ class ConfigService {
       database: this.getValue('DB_NAME'),
       entities: ['dist/**/*.entity.js'],
       ssl: this.isProduction(),
+      autoLoadEntities: true,
+      synchronize: true,
     };
   }
 }
