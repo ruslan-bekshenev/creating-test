@@ -19,6 +19,6 @@ export class Question {
   @OneToMany(() => QuestionOptions, (options) => options.question)
   options: QuestionOptions[];
 
-  @OneToOne(() => QuestionAnswer, (answer) => answer.answer)
-  answer: QuestionAnswer;
+  @OneToMany(() => QuestionAnswer, (answer) => answer.answer)
+  answer: QuestionAnswer[];
 }

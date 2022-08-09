@@ -1,5 +1,5 @@
 import { Question } from '../question/question.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class QuestionAnswer {
@@ -9,6 +9,6 @@ export class QuestionAnswer {
   @Column({ nullable: false })
   answer: string;
 
-  @OneToOne(() => Question, (question) => question.question)
+  @ManyToOne(() => Question, (question) => question.question)
   question: Question;
 }
