@@ -16,9 +16,11 @@ export class Question {
   @Column({ nullable: false })
   question: string;
 
-  @OneToMany(() => QuestionOptions, (options) => options.question)
+  @OneToMany(() => QuestionOptions, (options) => options.question, {
+    cascade: true,
+  })
   options: QuestionOptions[];
 
-  @OneToMany(() => QuestionAnswer, (answer) => answer.answer)
+  @OneToMany(() => QuestionAnswer, (answer) => answer.answer, { cascade: true })
   answer: QuestionAnswer[];
 }
