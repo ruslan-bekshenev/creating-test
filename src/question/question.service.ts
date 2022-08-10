@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuestionAnswer } from 'src/question_answer/question_answer.entity';
 import { QuestionOptions } from 'src/question_options/question_options.entity';
+import { Quiz } from 'src/quiz/quiz.entity';
 import { Repository } from 'typeorm';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { Question } from './question.entity';
@@ -15,14 +16,23 @@ export class QuestionService {
     private questionOptionsRepository: Repository<QuestionOptions>,
     @InjectRepository(QuestionAnswer)
     private questionAnswerRepository: Repository<QuestionAnswer>,
+    @InjectRepository(Quiz)
+    private quizRepository: Repository<Quiz>,
   ) {}
 
-  async create(createQuestionDto: CreateQuestionDto) {
+  async create(quizId: string, createQuestionDto: CreateQuestionDto) {
     try {
-      const { question, answer, options, quiz } = createQuestionDto;
-      const questionObj = this.questionRepository.create({ question });
+      const { question, answer, options } = createQuestionDto;
+
+      const quizObj = await this.quizRepository.findOneBy({ id: quizId });
+
+      const questionObj = this.questionRepository.create({
+        question,
+        quiz: quizObj,
+      });
 
       await this.questionRepository.save(questionObj);
+
       const optionsArray: QuestionOptions[] = [];
       for (let i = 0; i < options.length; i++) {
         const optionObj = this.questionOptionsRepository.create({
@@ -41,10 +51,11 @@ export class QuestionService {
       });
 
       await this.questionAnswerRepository.save(answerObj);
-
+      console.log(questionObj);
       return {
         question: {
-          ...questionObj,
+          id: questionObj.id,
+          value: questionObj.question,
           answer: {
             id: answerObj.id,
             value: answerObj.answer,
@@ -60,8 +71,8 @@ export class QuestionService {
     }
   }
 
-  getListByQuiz(quizId: string) {
-    console.log(quizId);
-    return this.questionRepository.find();
+  async getListByQuiz(quizId: string) {
+    const quiz = await this.quizRepository.findOneBy({ id: quizId });
+    return this.questionRepository.findBy({ quiz });
   }
 }

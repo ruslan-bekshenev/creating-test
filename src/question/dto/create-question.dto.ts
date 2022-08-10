@@ -9,7 +9,4 @@ export class CreateQuestionDto {
 
   @IsNumber()
   answer: number;
-
-  @IsString()
-  quiz: string;
 }
