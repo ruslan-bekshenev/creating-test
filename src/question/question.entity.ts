@@ -1,8 +1,10 @@
 import { QuestionAnswer } from 'src/question_answer/question_answer.entity';
 import { QuestionOptions } from 'src/question_options/question_options.entity';
+import { Quiz } from 'src/quiz/quiz.entity';
 import {
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -23,4 +25,7 @@ export class Question {
 
   @OneToMany(() => QuestionAnswer, (answer) => answer.answer, { cascade: true })
   answer: QuestionAnswer[];
+
+  @ManyToOne(() => Quiz, (quiz) => quiz.id, { nullable: false })
+  quiz: Quiz;
 }

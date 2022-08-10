@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionService } from './question.service';
 
@@ -11,8 +11,8 @@ export class QuestionController {
     return this.questionService.create(createQuestionDto);
   }
 
-  @Get()
-  getList() {
-    return this.questionService.getList();
+  @Get('/:quizId')
+  getListByQuiz(@Param('quizId') quizId) {
+    return this.questionService.getListByQuiz(quizId);
   }
 }

@@ -9,7 +9,7 @@ export class Quiz {
   @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   timer: number;
 
   @OneToMany(() => Question, (question) => question.id)

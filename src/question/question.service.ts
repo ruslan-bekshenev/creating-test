@@ -19,8 +19,7 @@ export class QuestionService {
 
   async create(createQuestionDto: CreateQuestionDto) {
     try {
-      const { question, answer, options } = createQuestionDto;
-
+      const { question, answer, options, quiz } = createQuestionDto;
       const questionObj = this.questionRepository.create({ question });
 
       await this.questionRepository.save(questionObj);
@@ -61,7 +60,8 @@ export class QuestionService {
     }
   }
 
-  getList() {
+  getListByQuiz(quizId: string) {
+    console.log(quizId);
     return this.questionRepository.find();
   }
 }
