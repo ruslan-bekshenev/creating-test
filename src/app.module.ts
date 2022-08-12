@@ -8,6 +8,9 @@ import { QuizModule } from './quiz/quiz.module';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
+import { UsersQuizsController } from './users_quizs/users_quizs.controller';
+import { UsersQuizsService } from './users_quizs/users_quizs.service';
+import { UsersQuizsModule } from './users_quizs/users_quizs.module';
 
 @Module({
   imports: [
@@ -17,8 +20,9 @@ import { UserModule } from './user/user.module';
     QuestionAnswerModule,
     QuizModule,
     UserModule,
+    UsersQuizsModule,
   ],
-  controllers: [UserController],
-  providers: [UserService],
+  controllers: [UserController, UsersQuizsController],
+  providers: [UserService, UsersQuizsService],
 })
 export class AppModule {}
