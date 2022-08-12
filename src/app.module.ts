@@ -5,6 +5,9 @@ import { QuestionModule } from './question/question.module';
 import { QuestionOptionsModule } from './question_options/question_options.module';
 import { QuestionAnswerModule } from './question_answer/question_answer.module';
 import { QuizModule } from './quiz/quiz.module';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -13,8 +16,9 @@ import { QuizModule } from './quiz/quiz.module';
     QuestionOptionsModule,
     QuestionAnswerModule,
     QuizModule,
+    UserModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [UserController],
+  providers: [UserService],
 })
 export class AppModule {}

@@ -51,7 +51,7 @@ export class QuestionService {
       });
 
       await this.questionAnswerRepository.save(answerObj);
-      console.log(questionObj);
+
       return {
         question: {
           id: questionObj.id,
