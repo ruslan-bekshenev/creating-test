@@ -23,11 +23,11 @@ export class UsersQuizs {
   quiz: Quiz;
 
   @CreateDateColumn({
-    type: 'timestamp',
+    type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   created_at: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   finish_at: Date;
 }
