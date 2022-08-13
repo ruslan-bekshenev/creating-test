@@ -1,4 +1,11 @@
-import { Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../user/user.entity';
 import { Quiz } from '../quiz/quiz.entity';
 
@@ -14,4 +21,13 @@ export class UsersQuizs {
   @ManyToOne(() => Quiz, (quiz) => quiz.quizUsers)
   @JoinTable({ name: 'quid_id' })
   quiz: Quiz;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  created_at: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  finish_at: Date;
 }
