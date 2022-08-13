@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { UsersQuizsController } from './users_quizs/users_quizs.controller';
 import { UsersQuizsService } from './users_quizs/users_quizs.service';
 import { UsersQuizsModule } from './users_quizs/users_quizs.module';
+import { AuthModule } from './user/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersQuizsModule } from './users_quizs/users_quizs.module';
     QuizModule,
     UserModule,
     UsersQuizsModule,
+    AuthModule,
   ],
   controllers: [UserController, UsersQuizsController],
   providers: [UserService, UsersQuizsService],
