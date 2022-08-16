@@ -32,4 +32,10 @@ export class UsersQuizsService {
 
     return userQuiz;
   }
+
+  async getList(userId: string) {
+    const user = await this.userRepository.findBy({ id: userId });
+    const quizes = await this.usersQuizsRepository.findBy({ user });
+    return quizes;
+  }
 }
