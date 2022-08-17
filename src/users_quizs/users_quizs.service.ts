@@ -36,6 +36,7 @@ export class UsersQuizsService {
   async getList(userId: string) {
     const user = await this.userRepository.findBy({ id: userId });
     const quizes = await this.usersQuizsRepository.findBy({ user });
+    console.log(quizes);
     return quizes;
   }
 }
