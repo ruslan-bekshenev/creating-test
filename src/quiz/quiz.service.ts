@@ -20,4 +20,11 @@ export class QuizService {
 
     return quizObj;
   }
+
+  async getList() {
+    return this.quizRepository.find({
+      take: 0,
+      skip: 0,
+    });
+  }
 }

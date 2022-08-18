@@ -55,6 +55,7 @@ export class QuestionService {
       question: {
         id: questionObj.id,
         value: questionObj.question,
+        quizId: questionObj.quiz.id,
         answer: {
           id: answerObj.id,
           value: answerObj.answer,
@@ -69,6 +70,12 @@ export class QuestionService {
 
   async getListByQuiz(quizId: string) {
     const quiz = await this.quizRepository.findOneBy({ id: quizId });
-    return this.questionRepository.findBy({ quiz });
+    return this.questionRepository.find({
+      where: { quiz },
+      select: {
+        id: true,
+        question: true,
+      },
+    });
   }
 }

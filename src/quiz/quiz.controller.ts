@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { QuizService } from './quiz.service';
 
@@ -9,5 +9,10 @@ export class QuizController {
   @Post()
   create(@Body() createQuizDto: CreateQuizDto) {
     return this.quizService.create(createQuizDto);
+  }
+
+  @Get()
+  getList() {
+    return this.quizService.getList();
   }
 }
