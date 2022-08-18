@@ -21,54 +21,50 @@ export class QuestionService {
   ) {}
 
   async create(quizId: string, createQuestionDto: CreateQuestionDto) {
-    try {
-      const { question, answer, options } = createQuestionDto;
+    const { question, answer, options } = createQuestionDto;
 
-      const quizObj = await this.quizRepository.findOneBy({ id: quizId });
+    const quizObj = await this.quizRepository.findOneBy({ id: quizId });
 
-      const questionObj = this.questionRepository.create({
-        question,
-        quiz: quizObj,
-      });
+    const questionObj = this.questionRepository.create({
+      question,
+      quiz: quizObj,
+    });
 
-      await this.questionRepository.save(questionObj);
+    await this.questionRepository.save(questionObj);
 
-      const optionsArray: QuestionOptions[] = [];
-      for (let i = 0; i < options.length; i++) {
-        const optionObj = this.questionOptionsRepository.create({
-          option: options[i],
-          question: questionObj,
-        });
-
-        await this.questionOptionsRepository.save(optionObj);
-
-        optionsArray.push(optionObj);
-      }
-
-      const answerObj: QuestionAnswer = this.questionAnswerRepository.create({
-        answer: optionsArray[answer].option,
+    const optionsArray: QuestionOptions[] = [];
+    for (let i = 0; i < options.length; i++) {
+      const optionObj = this.questionOptionsRepository.create({
+        option: options[i],
         question: questionObj,
       });
 
-      await this.questionAnswerRepository.save(answerObj);
+      await this.questionOptionsRepository.save(optionObj);
 
-      return {
-        question: {
-          id: questionObj.id,
-          value: questionObj.question,
-          answer: {
-            id: answerObj.id,
-            value: answerObj.answer,
-          },
-          options: optionsArray.map((option) => ({
-            id: option.id,
-            value: option.option,
-          })),
-        },
-      };
-    } catch (e) {
-      console.log(e);
+      optionsArray.push(optionObj);
     }
+
+    const answerObj: QuestionAnswer = this.questionAnswerRepository.create({
+      answer: optionsArray[answer].option,
+      question: questionObj,
+    });
+
+    await this.questionAnswerRepository.save(answerObj);
+
+    return {
+      question: {
+        id: questionObj.id,
+        value: questionObj.question,
+        answer: {
+          id: answerObj.id,
+          value: answerObj.answer,
+        },
+        options: optionsArray.map((option) => ({
+          id: option.id,
+          value: option.option,
+        })),
+      },
+    };
   }
 
   async getListByQuiz(quizId: string) {
