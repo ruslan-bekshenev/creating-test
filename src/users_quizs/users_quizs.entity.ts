@@ -30,4 +30,7 @@ export class UsersQuizs {
 
   @Column({ type: 'timestamptz', nullable: true })
   finish_at: Date;
+
+  @Column({ nullable: false })
+  rightAnswers: number;
 }
