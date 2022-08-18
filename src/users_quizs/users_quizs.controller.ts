@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateUsersQuizsDto } from './dto/create-users-quizs.dto';
 import { UsersQuizsService } from './users_quizs.service';
 
@@ -12,7 +12,11 @@ export class UsersQuizsController {
   }
 
   @Get('/:userId')
-  getList(@Param('userId') userId) {
-    return this.usersQuizsService.getList(userId);
+  getList(
+    @Param('userId') userId,
+    @Query('page') page: number,
+    @Query('count') count: number,
+  ) {
+    return this.usersQuizsService.getList(userId, page, count);
   }
 }

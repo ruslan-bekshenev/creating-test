@@ -33,9 +33,13 @@ export class UsersQuizsService {
     return userQuiz;
   }
 
-  async getList(userId: string) {
+  async getList(userId: string, page: number, count: number) {
     const user = await this.userRepository.findBy({ id: userId });
-    const quizes = await this.usersQuizsRepository.findBy({ user });
+    const quizes = await this.usersQuizsRepository.findAndCount({
+      where: { user },
+      take: count,
+      skip: page,
+    });
     return quizes;
   }
 }
