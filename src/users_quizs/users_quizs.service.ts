@@ -33,7 +33,7 @@ export class UsersQuizsService {
     return userQuiz;
   }
 
-  async getList(userId: string, page: number, count: number) {
+  async getQuizesByUser(userId: string, page: number, count: number) {
     const user = await this.userRepository.findBy({ id: userId });
     const quizes = await this.usersQuizsRepository.findAndCount({
       where: { user },
@@ -41,5 +41,15 @@ export class UsersQuizsService {
       skip: page,
     });
     return quizes;
+  }
+
+  async getUsersByQuiz(quizId: string, page: number, count: number) {
+    const quiz = await this.quizRepository.findBy({ id: quizId });
+    const users = await this.usersQuizsRepository.findAndCount({
+      where: { quiz },
+      take: count,
+      skip: page,
+    });
+    return users;
   }
 }

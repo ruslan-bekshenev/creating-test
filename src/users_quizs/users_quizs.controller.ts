@@ -12,11 +12,20 @@ export class UsersQuizsController {
   }
 
   @Get('/:userId')
-  getList(
+  getQuizesByUser(
     @Param('userId') userId,
     @Query('page') page: number,
     @Query('count') count: number,
   ) {
-    return this.usersQuizsService.getList(userId, page, count);
+    return this.usersQuizsService.getQuizesByUser(userId, page, count);
+  }
+
+  @Get('/:quizId')
+  getUsersByQuiz(
+    @Param('quizId') quizId,
+    @Query('page') page: number,
+    @Query('count') count: number,
+  ) {
+    return this.usersQuizsService.getUsersByQuiz(quizId, page, count);
   }
 }
