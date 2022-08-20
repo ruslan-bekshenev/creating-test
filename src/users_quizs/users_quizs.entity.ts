@@ -26,10 +26,10 @@ export class UsersQuizs {
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @Column({ type: 'timestamptz', nullable: true })
-  finish_at: Date;
+  finishAt: Date;
 
   @Column({ nullable: false })
   rightAnswers: number;
